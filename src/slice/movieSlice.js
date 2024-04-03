@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState  = {
-    movies : [{
-        id: "1"
-    }]
+    movies : [],
+    topRated : []
 }
 
 const movieSlice = createSlice({
@@ -14,10 +13,13 @@ const movieSlice = createSlice({
 
             state.movies = action.payload
 
+        },
+        setTopRated : (state,action) => {
+            state.topRated = action.payload
         }
     }
 })
 
-export const {setMovie} = movieSlice.actions;
+export const {setMovie, setTopRated} = movieSlice.actions;
 
 export default movieSlice.reducer

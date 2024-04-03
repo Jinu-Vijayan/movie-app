@@ -7,6 +7,7 @@ const AppTemplate = () => {
   return (
     <div>
         <Navbar/>
+        <div className='h-20 mb-1'></div>
         <Outlet/>
         <Footer/>
     </div>
