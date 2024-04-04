@@ -4,6 +4,7 @@ import HomeScreen from './screens/HomeScreen';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppTemplate from './components/AppTemplate';
 import Explore from './screens/Explore';
+import MovieDetails from './screens/MovieDetails';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path='/' element = {<AppTemplate/>}>
           <Route path='' element = {<HomeScreen/>} />
           <Route path='explore/:showType' element = {<Explore/>} />
+          <Route path='movie/:movieId' element = {<MovieDetails/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

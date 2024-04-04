@@ -1,7 +1,9 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setTopRated } from '../slice/movieSlice';
+import { setConfigurations, setTrending } from '../slice/movieSlice';
+import CardsContainer from '../components/CardsContainer';
+import fetchData from '../apiCall';
 
 const Header = () => {
   return(
@@ -18,36 +20,32 @@ const Header = () => {
 
 const HomeScreen = () => {
 
-  const token = process.env.REACT_APP_TOKEN;
 
-  const topRated = useSelector((state)=> state.movieSlice.topRated)
+  const trendingFilterOptions = ["Day" , "Week"]
+
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    const trendingUrl = `https://api.themoviedb.org/3/trending/movie/day`
-    const option = {
-      method : "GET",
-      url : trendingUrl,
-      headers : {
-        accept : "application/json",
-        Authorization : `Bearer ${token}`
-      }
-    }
+  const [trendingFilter , setTrendingFilter] = useState("day")
 
-    axios.request(option)
-    .then((res)=>{
-      dispatch(setTopRated(res.data.results))
-    })
-    .catch((error)=>{
-      console.log(error)
-    })
+  useEffect(()=>{
+
+    const configurationsUrl = 'https://api.themoviedb.org/3/configuration'
+    fetchData(configurationsUrl,"config",dispatch,setConfigurations)
 
   },[])
 
+  useEffect(()=>{
+
+    const trendingUrl = `https://api.themoviedb.org/3/trending/movie/${trendingFilter}`
+
+    fetchData(trendingUrl,"trending",dispatch,setTrending)
+  },[trendingFilter])
+
   
   return (
-    <main className='p-4 '>
+    <main className='p-4 bg-slate-900 text-white '>
       <Header/>
+      <CardsContainer containerType = {"Trending"} filterOptions = {trendingFilterOptions} dataStoredIn = 'trending' setFilter = {setTrendingFilter} />
     </main>
   )
 }
