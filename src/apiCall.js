@@ -27,23 +27,7 @@ const token = process.env.REACT_APP_TOKEN;
     axios.request(option)
     .then((res)=>{
 
-      if(dataOF === "trending"){
-
-        dispatch(setData(res.data.results))
-
-      } else if(dataOF === "config"){
-
-        dispatch(setData(res.data))
-
-      } else if (dataOF === "movie"){
-
-        dispatch(setData(res.data))
-
-      } else if (dataOF === "popular"){
-        // dispatch(setData(res))
-        // console.log(setData(res.data.results))
-        dispatch(setData(res.data.results))
-      }
+      dispatch(setData(res.data.results || res.data))
       
     })
     .catch((error)=>{

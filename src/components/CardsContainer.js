@@ -8,8 +8,9 @@ import MovieCard from './MovieCard'
 
 const CardsContainer = ({containerType,filterOptions,dataStoredIn, setFilter}) => {
 
+  
   const data = useSelector((state)=>state.movieSlice?.[dataStoredIn])
-
+  
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [indicatorDivPosition, setIndicatorDivPosition] = useState(0);
 
