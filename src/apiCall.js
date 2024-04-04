@@ -38,7 +38,11 @@ const token = process.env.REACT_APP_TOKEN;
       } else if (dataOF === "movie"){
 
         dispatch(setData(res.data))
-        
+
+      } else if (dataOF === "popular"){
+        // dispatch(setData(res))
+        // console.log(setData(res.data.results))
+        dispatch(setData(res.data.results))
       }
       
     })

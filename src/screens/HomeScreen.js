@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setConfigurations, setTrending } from '../slice/movieSlice';
+import { setConfigurations, setPopular, setTrending } from '../slice/movieSlice';
 import CardsContainer from '../components/CardsContainer';
 import fetchData from '../apiCall';
 
@@ -22,10 +22,12 @@ const HomeScreen = () => {
 
 
   const trendingFilterOptions = ["Day" , "Week"]
+  const popularFilterOptions = ["Movies","TV Shows"]
 
   const dispatch = useDispatch();
 
   const [trendingFilter , setTrendingFilter] = useState("day")
+  const [popularFilter, setPopularFilter] = useState("movies")
 
   useEffect(()=>{
 
@@ -39,13 +41,28 @@ const HomeScreen = () => {
     const trendingUrl = `https://api.themoviedb.org/3/trending/movie/${trendingFilter}`
 
     fetchData(trendingUrl,"trending",dispatch,setTrending)
+
   },[trendingFilter])
+
+  useEffect(()=>{
+
+    const popularType = {
+      movies : "movie",
+      "tv shows" : "tv"
+    }
+
+    const popularUrl = `https://api.themoviedb.org/3/${popularType[popularFilter]}/popular`
+
+    fetchData(popularUrl,"popular",dispatch,setPopular)
+
+  },[popularFilter])
 
   
   return (
     <main className='p-4 bg-slate-900 text-white '>
       <Header/>
       <CardsContainer containerType = {"Trending"} filterOptions = {trendingFilterOptions} dataStoredIn = 'trending' setFilter = {setTrendingFilter} />
+      <CardsContainer containerType={"What's Popular"} dataStoredIn="popular" setFilter={setPopularFilter} filterOptions={popularFilterOptions}/>
     </main>
   )
 }

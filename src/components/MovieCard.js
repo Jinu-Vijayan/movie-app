@@ -9,14 +9,14 @@ const MovieCard = ({movieDetails}) => {
 
   const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-  const date =new Date(movieDetails.release_date);
+  const date =new Date(movieDetails.release_date || movieDetails.first_air_date);
 
   return (
-    <div className='w-[150px] text-white mr-3'>
+    <div className=' w-[150px] text-white mr-3'>
         <NavLink to={`/movie/${movieDetails.id}`}>
             <img src={`${imageBaseUrl}${imageSize}${movieDetails.poster_path}`} className='h-[220px]'/>
             <div className='h-20'>
-                <p className='text-nowrap overflow-hidden'>{movieDetails.title}</p>
+                <p className='text-nowrap overflow-hidden'>{movieDetails.title || movieDetails.name}</p>
                 <p>{`${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`}</p>
             </div>
         </NavLink>

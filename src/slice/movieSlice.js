@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState  = {
     movieData : [],
     trending : [],
-    configurations : ""
+    configurations : "",
+    popular:[]
 }
 
 const movieSlice = createSlice({
@@ -20,10 +21,13 @@ const movieSlice = createSlice({
         },
         setConfigurations : (state, action) => {
             state.configurations = action.payload;
+        },
+        setPopular : (state, action) =>{
+            state.popular = action.payload
         }
     }
 })
 
-export const {setMovieData, setTrending, setConfigurations} = movieSlice.actions;
+export const {setMovieData, setTrending, setConfigurations, setPopular} = movieSlice.actions;
 
 export default movieSlice.reducer

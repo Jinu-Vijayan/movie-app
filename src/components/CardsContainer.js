@@ -14,7 +14,7 @@ const CardsContainer = ({containerType,filterOptions,dataStoredIn, setFilter}) =
   const [indicatorDivPosition, setIndicatorDivPosition] = useState(0);
 
   return (
-    <div>
+    <div >
       <div className='flex justify-between mb-4'>
         <h2>{containerType}</h2>
         <div className='flex gap-5 items-center relative bg-white text-black px-5 py-2 rounded-[30px]'>
@@ -81,7 +81,7 @@ const CardsContainer = ({containerType,filterOptions,dataStoredIn, setFilter}) =
         easing="linear"
       >
         {/* here you can also pass any other element attributes. Also, you can use your custom components as slides */}
-        {
+        { data.length > 0 &&
           data.map((elem)=>{
             return(
               <MovieCard movieDetails={elem} key={elem.id}/>

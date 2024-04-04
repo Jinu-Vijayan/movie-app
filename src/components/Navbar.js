@@ -4,7 +4,7 @@ import logo from '../assets/images/logo.svg'
 
 const Navbar = () => {
   return (
-    <nav className='p-5 bg-black text-white fixed w-full'>
+    <nav className='p-5 bg-black text-white fixed z-10 w-full'>
         <ul className='flex justify-between cursor-pointer items-center'>
             <div>
                 <NavLink to={'/'} >
