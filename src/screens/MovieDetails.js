@@ -9,7 +9,6 @@ import { setMovieData } from '../slice/movieSlice'
 
 const MovieDetails = () => {
     const {movieId} = useParams()
-    const dispatch = useDispatch()
     const movieData = useSelector((state)=>state.movieSlice?.movieData)
 
     useEffect(()=>{

@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppTemplate from './components/AppTemplate';
 import Explore from './screens/Explore';
 import MovieDetails from './screens/MovieDetails';
+import Search from './screens/Search';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path='' element = {<HomeScreen/>} />
           <Route path='explore/:showType' element = {<Explore/>} />
           <Route path='movie/:movieId' element = {<MovieDetails/>}/>
+          <Route path='search/:query' element = {<Search/>} />
         </Route>
       </Routes>
     </BrowserRouter>

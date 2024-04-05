@@ -1,18 +1,28 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setConfigurations, setPopular, setTopRated, setTrending } from '../slice/movieSlice';
 import CardsContainer from '../components/CardsContainer';
 import fetchData from '../apiCall';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
+
+  const [searchInput, setSearchInput] = useState("");
+  const inputRef = useRef()
+
   return(
     <div className='h-[76.5vh] flex flex-col justify-center items-center'>
         <h1 className='mb-5 text-5xl font-bold'>Welcome</h1>
         <p className='mb-10'>Millions of movies, TV shows and people to discover. Explore now.</p>
         <div className='flex justify-center items-center w-full'>
-          <input placeholder='enter movie or show name' type='text'className='px-4 py-2 border border-slate-500 w-1/2 h-12 rounded-l-lg' />
+          <input ref={inputRef} placeholder='enter movie or show name' type='text'className='px-4 py-2 border border-slate-500 w-1/2 h-12 rounded-l-lg text-black' onChange={(e)=>{
+            setSearchInput(e.target.value)
+          }} />
+          <NavLink to={`/search/${searchInput}`}>
           <button className='px-8 py-2 bg-blue-500 text-white cursor-pointer h-12 rounded-r-lg'>Search</button>
+
+          </NavLink>
         </div>
     </div>
   )

@@ -5,7 +5,9 @@ const initialState  = {
     trending : [],
     configurations : "",
     popular:[],
-    topRated:[]
+    topRated:[],
+    searchResults :[],
+    totalPages : 0
 }
 
 const movieSlice = createSlice({
@@ -13,9 +15,7 @@ const movieSlice = createSlice({
     initialState,
     reducers : {
         setMovieData : (state,action) => {
-
             state.movieData = action.payload
-
         },
         setTrending : (state,action) => {
             state.trending = action.payload
@@ -28,10 +28,16 @@ const movieSlice = createSlice({
         },
         setTopRated : (state, action) =>{
             state.topRated = action.payload
+        },
+        setSearchResults : (state, action) =>{
+            state.searchResults = action.payload
+        },
+        setTotalPages : (state, action) =>{
+            state.totalPages = action.payload
         }
     }
 })
 
-export const {setMovieData, setTrending, setConfigurations, setPopular, setTopRated} = movieSlice.actions;
+export const {setMovieData, setTrending, setConfigurations, setPopular, setTopRated, setSearchResults, setTotalPages} = movieSlice.actions;
 
 export default movieSlice.reducer

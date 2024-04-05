@@ -17,7 +17,7 @@ const CardsContainer = ({containerType,filterOptions,dataStoredIn, setFilter}) =
   return (
     <div >
       <div className='flex justify-between mb-4'>
-        <h2>{containerType}</h2>
+        <h2 className='text-2xl font-bold'>{containerType}</h2>
         <div className='flex gap-5 items-center relative bg-white text-black px-5 py-2 rounded-[30px]'>
           {
             filterOptions.map((elem,index)=>{
@@ -73,7 +73,7 @@ const CardsContainer = ({containerType,filterOptions,dataStoredIn, setFilter}) =
         }}
         responsiveProps={[
           {
-            itemsToShow: 9,
+            itemsToShow: 7,
             itemsToScroll: 1,
             minWidth: 768,
           },

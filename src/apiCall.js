@@ -1,5 +1,6 @@
 import axios from "axios";
 import { dispatch } from "./store/store";
+import { setTotalPages } from "./slice/movieSlice";
 
 const token = process.env.REACT_APP_TOKEN;
 
@@ -25,8 +26,9 @@ const token = process.env.REACT_APP_TOKEN;
 
     axios.request(option)
     .then((res)=>{
-
+      // console.log(res.data.results);
       dispatch(setData(res.data.results || res.data))
+      dispatch(setTotalPages(res?.data?.total_pages))
       
     })
     .catch((error)=>{
