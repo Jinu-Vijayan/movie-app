@@ -118,7 +118,7 @@ const Explore = () => {
       <div className='flex flex-wrap'>
         {
           tvOrMovieData.map((elem)=>{
-            return <MovieCard movieDetails={elem}/>
+            return <MovieCard movieDetails={elem} cardType = {pageType[data.showType]}/>
           })
         }
       </div>
