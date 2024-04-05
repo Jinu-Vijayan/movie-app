@@ -15,7 +15,7 @@ const MovieCard = ({movieDetails}) => {
   return (
     <div className=' w-[188px] text-white mr-3'>
         <NavLink to={`/movie/${movieDetails.id}`}>
-            <img src={`${imageBaseUrl}${imageSize}${movieDetails.poster_path}`} className=' h-[280px]'/>
+            <img src={`http://image.tmdb.org/t/p/original${movieDetails.poster_path}`} className=' h-[280px]'/>
             <div className='h-20'>
                 <p className='text-nowrap overflow-hidden'>{movieDetails.title || movieDetails.name}</p>
                 <p>{`${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`}</p>

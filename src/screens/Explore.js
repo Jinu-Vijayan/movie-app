@@ -57,11 +57,11 @@ const Explore = () => {
 
       // const movieOrTvShowUrl = `https://api.themoviedb.org/3/discover/${pageType[data.showType]}?${selectedOption === null ? "with_genres=": `with_genres=${selectedOptionString}`}&${selectedSortOption === null ? "sort_by=":`sort_by=${selectedSortOption}`}`;
 
-      const movieOrTvShowUrl = `https://api.themoviedb.org/3/discover/${pageType[data.showType]}?${selectedOption === null ? "with_genres=": `with_genres=${selectedOptionString}`}`
+      const movieOrTvShowUrl = `https://api.themoviedb.org/3/discover/${pageType[data.showType]}?${selectedOption === null ? "with_genres=": `with_genres=${selectedOptionString}`}&${selectedSortOption === null ? "sort_by=":`sort_by=${selectedSortOption.value}`}`
 
       const res = await fetchData(movieOrTvShowUrl);
 
-      console.log(res.data.results)
+      // console.log(selectedSortOption)
       dispatch(setTvOrMovieData(res.data.results))
 
       // fetchData(movieOrTvShowUrl)
@@ -86,7 +86,7 @@ const Explore = () => {
 
     useEffect(()=>{
       fetchMovieOrTvData()
-    },[data.showType,selectedOption])
+    },[data.showType,selectedOption,selectedSortOption])
 
 
   return (
