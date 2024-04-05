@@ -38,7 +38,7 @@ const HomeScreen = () => {
   useEffect(()=>{
 
     const configurationsUrl = 'https://api.themoviedb.org/3/configuration'
-    fetchData(configurationsUrl,dispatch,setConfigurations)
+    fetchData(configurationsUrl,setConfigurations)
 
   },[])
 
@@ -46,7 +46,7 @@ const HomeScreen = () => {
 
     const trendingUrl = `https://api.themoviedb.org/3/trending/movie/${trendingFilter}`
 
-    fetchData(trendingUrl,dispatch,setTrending)
+    fetchData(trendingUrl,setTrending)
 
   },[trendingFilter])
 
@@ -54,7 +54,7 @@ const HomeScreen = () => {
 
     const popularUrl = `https://api.themoviedb.org/3/${popularType[popularFilter]}/popular`
 
-    fetchData(popularUrl,dispatch,setPopular)
+    fetchData(popularUrl,setPopular)
 
   },[popularFilter])
 
@@ -62,7 +62,7 @@ const HomeScreen = () => {
     
     const topRatedUrl = `https://api.themoviedb.org/3/${popularType[topRatedFilter]}/top_rated`
 
-    fetchData(topRatedUrl,dispatch,setTopRated)
+    fetchData(topRatedUrl,setTopRated)
 
   },[topRatedFilter])
 

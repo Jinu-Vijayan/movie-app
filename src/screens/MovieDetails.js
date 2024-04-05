@@ -14,7 +14,7 @@ const MovieDetails = () => {
 
     useEffect(()=>{
         const movieUrl = `https://api.themoviedb.org/3/movie/${movieId}`
-        fetchData(movieUrl,"movie",dispatch,setMovieData)
+        fetchData(movieUrl,setMovieData)
     },[])
 
     console.log(movieData)

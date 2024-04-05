@@ -1,7 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-
+//TODO
+// when clicking on a card a new page opens show data on that page
 const MovieCard = ({movieDetails}) => {
 
   const imageBaseUrl = useSelector((state)=>state.movieSlice?.configurations?.images?.base_url)

@@ -6,3 +6,5 @@ export const store = configureStore({
         movieSlice
     },
 })
+
+export const {dispatch} = store;
