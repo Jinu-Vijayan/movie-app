@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setConfigurations, setPopular, setTopRated, setTrending } from '../slice/movieSlice';
+import { dispatch } from '../store/store';
 import CardsContainer from '../components/CardsContainer';
 import fetchData from '../apiCall';
 import { NavLink } from 'react-router-dom';
@@ -45,35 +46,49 @@ const HomeScreen = () => {
     "tv shows" : "tv"
   }
 
-  useEffect(()=>{
-
+  async function fetchConfigData(){
     const configurationsUrl = 'https://api.themoviedb.org/3/configuration'
-    fetchData(configurationsUrl,setConfigurations)
+    const res = await fetchData(configurationsUrl,setConfigurations)
 
+    dispatch(setConfigurations(res.data))
+  }
+
+  async function fetchTrendingData(){
+    const trendingUrl = `https://api.themoviedb.org/3/trending/movie/${trendingFilter}`
+
+    const res = await fetchData(trendingUrl);
+    dispatch(setTrending(res.data.results));
+
+  }
+
+  async function fetchPopularData(){
+    const popularUrl = `https://api.themoviedb.org/3/${popularType[popularFilter]}/popular`;
+
+    const res = await fetchData(popularUrl);
+    dispatch(setPopular(res.data.results))
+  }
+
+  async function fetchTopRated(){
+    const topRatedUrl = `https://api.themoviedb.org/3/${popularType[topRatedFilter]}/top_rated`;
+
+    const res = await fetchData(topRatedUrl);
+    dispatch(setTopRated(res.data.results));
+  }
+
+  useEffect(()=>{
+    fetchConfigData()
   },[])
 
   useEffect(()=>{
-
-    const trendingUrl = `https://api.themoviedb.org/3/trending/movie/${trendingFilter}`
-
-    fetchData(trendingUrl,setTrending)
-
+    fetchTrendingData()
   },[trendingFilter])
 
   useEffect(()=>{
-
-    const popularUrl = `https://api.themoviedb.org/3/${popularType[popularFilter]}/popular`
-
-    fetchData(popularUrl,setPopular)
-
+    fetchPopularData();
   },[popularFilter])
 
   useEffect(()=>{
-    
-    const topRatedUrl = `https://api.themoviedb.org/3/${popularType[topRatedFilter]}/top_rated`
-
-    fetchData(topRatedUrl,setTopRated)
-
+    fetchTopRated()
   },[topRatedFilter])
 
   
