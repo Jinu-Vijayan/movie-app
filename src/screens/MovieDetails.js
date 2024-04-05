@@ -103,7 +103,11 @@ const MovieDetails = () => {
           </div>
           <div className='mt-4 flex gap-8'>
             <p>Rating:{movieDetails.vote_average}</p>
+            {
+              trailerCode ? 
             <a className='cursor-pointer' href={`https://www.youtube.com/watch?v=${trailerCode}`} target='_blank'>Watch Trailer</a>
+            : <p>No trailer avialable</p>
+            }
           </div>
         </div>
       </div>
