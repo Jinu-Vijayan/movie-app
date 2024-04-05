@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux'
 import fetchData from '../apiCall';
 import { dispatch } from '../store/store';
 import {setGenres, setMovieData, setPageType, setTotalPages, setTvOrMovieData} from '../slice/movieSlice';
+import InfiniteScroll from "react-infinite-scroll-component"
 import MovieCard from '../components/MovieCard';
 
 const Explore = () => {
@@ -18,6 +19,7 @@ const Explore = () => {
 
     const genres = useSelector((state) => state.movieSlice.genres);
     const tvOrMovieData = useSelector((state) => state.movieSlice.tvOrMovieData)
+    const totalPages = useSelector((state)=> state.movieSlice.totalPages)
     const storedPageType = useSelector((state)=>state.movieSlice.pageType)
 
 
@@ -123,7 +125,7 @@ const Explore = () => {
         }
       </div>
       <div className='flex w-full justify-center items-center'>
-            <button onClick={()=>{
+            <button className='bg-green-800 px-7 py-2 rounded' onClick={()=>{
                 setPage((prev) => {
                     return prev + 1;
                 })
