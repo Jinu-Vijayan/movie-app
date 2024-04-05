@@ -7,7 +7,8 @@ const initialState  = {
     popular:[],
     topRated:[],
     totalPages : 0,
-    genres : []
+    genres : [],
+    tvOrMovieData : []
 }
 
 const movieSlice = createSlice({
@@ -34,10 +35,13 @@ const movieSlice = createSlice({
         },
         setGenres : (state, action)=>{
             state.genres = action.payload
+        },
+        setTvOrMovieData : (state,action) => {
+            state.tvOrMovieData = action.payload
         }
     }
 })
 
-export const {setMovieData, setTrending, setConfigurations, setPopular, setTopRated, setTotalPages,setGenres} = movieSlice.actions;
+export const {setMovieData, setTrending, setConfigurations, setPopular, setTopRated, setTotalPages,setGenres,setTvOrMovieData} = movieSlice.actions;
 
 export default movieSlice.reducer
