@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 //TODO
 // when clicking on a card a new page opens show data on that page
-const MovieCard = ({movieDetails}) => {
+const MovieCard = ({movieDetails, cardType}) => {
 
   const imageBaseUrl = useSelector((state)=>state.movieSlice?.configurations?.images?.base_url)
   const imageSize = useSelector((state)=>state.movieSlice?.configurations?.images?.poster_sizes[6])
@@ -14,7 +14,7 @@ const MovieCard = ({movieDetails}) => {
 
   return (
     <div className=' w-[188px] text-white mr-3'>
-        <NavLink to={`/movie/${movieDetails.id}`}>
+        <NavLink to={`/${cardType}/${movieDetails.id}`}>
             <img src={`http://image.tmdb.org/t/p/original${movieDetails.poster_path}`} className=' h-[280px]'/>
             <div className='h-20'>
                 <p className='text-nowrap overflow-hidden'>{movieDetails.title || movieDetails.name}</p>

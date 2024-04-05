@@ -1,31 +1,116 @@
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useParams,useLocation } from 'react-router-dom'
 import fetchData from '../apiCall'
 import { useDispatch, useSelector } from 'react-redux'
-import { setMovieData } from '../slice/movieSlice'
+import { setMovieData, setMovieDetails, setRecommended, setSimilarShows, setVideos } from '../slice/movieSlice'
 import { dispatch } from '../store/store'
+import VideoCardContainer from '../components/VideoCardContainer'
+import CardsContainer from '../components/CardsContainer'
 
 // TODO
 // Complete the movie details card by showing the data recieved inside the movieData variable in line 13 
 
 const MovieDetails = () => {
-    const {movieId} = useParams()
-    const movieData = useSelector((state)=>state.movieSlice?.movieData)
 
-    async function fetchMovieData(){
-      const movieUrl = `https://api.themoviedb.org/3/movie/${movieId}`
-      const res = await fetchData(movieUrl,setMovieData)
-      dispatch(setMovieData(res.data.results))
+  let trailerLink = "";
+
+
+  const {id} = useParams()
+  const {pathname} = useLocation()
+  const [trailerCode, setTrailerCode] = useState("")
+
+  const cardType = pathname.split('/');
+  // console.log(cardType[1])
+
+  const movieDetails = useSelector((state)=> state.movieSlice.movieDetails);
+  const videos = useSelector((state)=>state.movieSlice.videos);
+  const similarShows = useSelector((state)=>state.movieSlice.similarShows);
+  const recommended = useSelector((state)=>state.movieSlice.recommended)
+  
+
+  // console.log(pathname)
+
+  async function fetchShowData(){
+    const movieUrl = `https://api.themoviedb.org/3/${pathname}`
+    const res = await fetchData(movieUrl)
+    // console.log("server response for details",res)
+    dispatch(setMovieDetails(res.data));
+  }
+
+  async function fetchSimilar(){
+    const similarShowUrl = `https://api.themoviedb.org/3/${pathname}/similar`
+    const res = await fetchData(similarShowUrl);
+    // console.log("similar shows",res.data.results)
+    dispatch(setSimilarShows(res.data.results))
+  }
+
+  async function fetchRecommeded(){
+    const recommendedUrl = `https://api.themoviedb.org/3/${pathname}/recommendations`;
+    const res = await fetchData(recommendedUrl);
+    dispatch(setRecommended(res.data.results));
+    // console.log("from recommended",res.data.results)
+  }
+
+  async function fetchVideos(){
+    const videosUrl = `https://api.themoviedb.org/3/${pathname}/videos`
+    const res = await fetchData(videosUrl);
+    // console.log("from videos",res.data.results)
+    dispatch(setVideos(res.data.results))
+
+    const data = res?.data?.results.filter((elem)=>{
+      if(elem.type === "Trailer"){
+        return true;
+      }
+      return false;
+    })
+
+    // trailerLink = `https://www.youtube.com/watch?v=${data[0].key}`
+    setTrailerCode(data[0]?.key)
+
+  }
+
+  useEffect(()=>{
+    fetchShowData();
+    fetchSimilar();
+    fetchRecommeded();
+    fetchVideos();
+    return()=>{
+      dispatch(setMovieDetails({}));
+      dispatch(setSimilarShows([]));
+      dispatch(setRecommended([]));
+      dispatch(setVideos([]));
     }
-
-    useEffect(()=>{
-      fetchMovieData()
-    },[])
-
-    console.log(movieData)
+  },[id])
 
   return (
-    <div>{movieId}</div>
+    <main className='p-4 bg-slate-900 text-white '>
+      <div className='flex justify-start gap-10 mb-4'>
+        <div className='h-[70vh]'>
+          <img className='h-full' src={`https://image.tmdb.org/t/p/original${movieDetails.poster_path}`} alt={`poster image for the show ${movieDetails.title}`}/>
+        </div>
+        <div>
+          <h2 className=' text-6xl mb-4'>{movieDetails.title}</h2>
+          <div className='flex gap-3'>
+            {movieDetails?.genres?.length > 0 &&
+              movieDetails?.genres.map((elem)=>{
+                return(
+                  <div key={elem.value} className='px-2 py-1 bg-fuchsia-600 text-white rounded flex justify-center items-center'>
+                    <p>{elem.name}</p>
+                  </div>
+                )
+              })
+            }
+          </div>
+          <div className='mt-4 flex gap-8'>
+            <p>Rating:{movieDetails.vote_average}</p>
+            <a className='cursor-pointer' href={`https://www.youtube.com/watch?v=${trailerCode}`} target='_blank'>Watch Trailer</a>
+          </div>
+        </div>
+      </div>
+      <VideoCardContainer/>
+      <CardsContainer containerType={"Similar Shows"} filterOptions={[]} dataStoredIn={"similarShows"} cardType={cardType[1]} />
+      <CardsContainer containerType={"Recommended"} filterOptions={[]} dataStoredIn={"recommended"} cardType={cardType[1]} />
+    </main>
   )
 }
 

@@ -97,11 +97,11 @@ const HomeScreen = () => {
 
       <Header/>
 
-      <CardsContainer containerType = {"Trending"} filterOptions = {trendingFilterOptions} dataStoredIn = 'trending' setFilter = {setTrendingFilter} />
+      <CardsContainer containerType = {"Trending"} filterOptions = {trendingFilterOptions} dataStoredIn = 'trending' setFilter = {setTrendingFilter} cardType = "movie" />
 
-      <CardsContainer containerType={"What's Popular"} dataStoredIn="popular" setFilter={setPopularFilter} filterOptions={popularFilterOptions}/>
+      <CardsContainer containerType={"What's Popular"} dataStoredIn="popular" setFilter={setPopularFilter} filterOptions={popularFilterOptions} cardType = {popularType[popularFilter]}/>
 
-      <CardsContainer containerType={"Top Rated"} dataStoredIn="topRated" setFilter={setTopRatedFilter} filterOptions={popularFilterOptions} />
+      <CardsContainer containerType={"Top Rated"} dataStoredIn="topRated" setFilter={setTopRatedFilter} filterOptions={popularFilterOptions} cardType = {popularType[topRatedFilter]} />
 
     </main>
   )

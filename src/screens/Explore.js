@@ -86,7 +86,6 @@ const Explore = () => {
     },[data.showType,selectedOption,selectedSortOption,])
 
     useEffect(()=>{
-      // setSelectedOption(null);
       fetchGenerList();
       fetchMovieOrTvData();
     },[clearStorage])

@@ -14,7 +14,8 @@ function App() {
         <Route path='/' element = {<AppTemplate/>}>
           <Route path='' element = {<HomeScreen/>} />
           <Route path='explore/:showType' element = {<Explore/>} />
-          <Route path='movie/:movieId' element = {<MovieDetails/>}/>
+          <Route path='movie/:id' element = {<MovieDetails/>}/>
+          <Route path='tv/:id' element = {<MovieDetails/>}/>
           <Route path='search/:query' element = {<Search/>} />
         </Route>
       </Routes>
