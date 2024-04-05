@@ -51,13 +51,13 @@ const Explore = () => {
 
     async function fetchMovieOrTvData(){
 
-      // const selectedOptionString = selectedOption && selectedOption.map((elem)=>{
-      //   return elem.value;
-      // }).join(",");
+      const selectedOptionString = selectedOption && selectedOption.map((elem)=>{
+        return elem.value;
+      }).join(",");
 
       // const movieOrTvShowUrl = `https://api.themoviedb.org/3/discover/${pageType[data.showType]}?${selectedOption === null ? "with_genres=": `with_genres=${selectedOptionString}`}&${selectedSortOption === null ? "sort_by=":`sort_by=${selectedSortOption}`}`;
 
-      const movieOrTvShowUrl = `https://api.themoviedb.org/3/discover/${pageType[data.showType]}`
+      const movieOrTvShowUrl = `https://api.themoviedb.org/3/discover/${pageType[data.showType]}?${selectedOption === null ? "with_genres=": `with_genres=${selectedOptionString}`}`
 
       const res = await fetchData(movieOrTvShowUrl);
 
@@ -79,13 +79,14 @@ const Explore = () => {
     }
 
     useEffect(()=>{
+      setSelectedOption(null);
       fetchGenerList();
-      fetchMovieOrTvData();
+      // fetchMovieOrTvData();
     },[data.showType])
 
-    // useEffect(()=>{
-    //   fetchMovieOrTvData()
-    // },[data.showType,selectedOption,selectedSortOption])
+    useEffect(()=>{
+      fetchMovieOrTvData()
+    },[data.showType,selectedOption])
 
 
   return (
