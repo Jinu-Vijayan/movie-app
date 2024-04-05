@@ -4,7 +4,7 @@ import Select from 'react-select';
 import {useSelector} from 'react-redux'
 import fetchData from '../apiCall';
 import { dispatch } from '../store/store';
-import {setGenres, setMovieData, setTotalPages, setTvOrMovieData} from '../slice/movieSlice';
+import {setGenres, setMovieData, setPageType, setTotalPages, setTvOrMovieData} from '../slice/movieSlice';
 import MovieCard from '../components/MovieCard';
 
 const Explore = () => {
@@ -14,9 +14,11 @@ const Explore = () => {
     const [selectedOption, setSelectedOption] = useState(null);
     const [selectedSortOption, setSelectedSortOption] = useState(null);
     const [page,setPage] = useState(1);
+    const [clearStorage, setClearStorage] = useState(true)
 
     const genres = useSelector((state) => state.movieSlice.genres);
     const tvOrMovieData = useSelector((state) => state.movieSlice.tvOrMovieData)
+    const storedPageType = useSelector((state)=>state.movieSlice.pageType)
 
 
 
@@ -55,38 +57,43 @@ const Explore = () => {
         return elem.value;
       }).join(",");
 
-      // const movieOrTvShowUrl = `https://api.themoviedb.org/3/discover/${pageType[data.showType]}?${selectedOption === null ? "with_genres=": `with_genres=${selectedOptionString}`}&${selectedSortOption === null ? "sort_by=":`sort_by=${selectedSortOption}`}`;
-
-      const movieOrTvShowUrl = `https://api.themoviedb.org/3/discover/${pageType[data.showType]}?${selectedOption === null ? "with_genres=": `with_genres=${selectedOptionString}`}&${selectedSortOption === null ? "sort_by=":`sort_by=${selectedSortOption.value}`}`
+      const movieOrTvShowUrl = `https://api.themoviedb.org/3/discover/${pageType[data.showType]}?${selectedOption === null ? "with_genres=": `with_genres=${selectedOptionString}`}&${selectedSortOption === null ? "sort_by=":`sort_by=${selectedSortOption.value}`}&page=${page}`
 
       const res = await fetchData(movieOrTvShowUrl);
 
+      const newData = [...tvOrMovieData,...res.data.results]
+
+
       // console.log(selectedSortOption)
-      dispatch(setTvOrMovieData(res.data.results))
-
-      // fetchData(movieOrTvShowUrl)
-      // .then((res) =>{
-      //   console.log(typeof(res.data.results));
-      //   dispatch(Object(res.data.results));
-      // })
-
-      // const newMovieOrTvShowData = [...movieData , ...res.data.results]
-      // console.log(movieData,res.data.results)
-
-      // dispatch(res.data.results);
-      // dispatch(setTotalPages(res.data.total_pages))
+      dispatch(setTvOrMovieData(newData))
+      dispatch(setTotalPages(res?.data?.total_pages))
       // console.log(res.data.results);
     }
 
     useEffect(()=>{
-      setSelectedOption(null);
+      console.log("first effect")
+      return()=> {
+        dispatch(setTvOrMovieData([]));
+        dispatch(setPageType(""));
+      };
+    },[dispatch])
+
+    useEffect(()=>{
+      dispatch(setTvOrMovieData([]));
+      setPage(1);
+      setClearStorage((prev) => !prev)
+      
+    },[data.showType,selectedOption,selectedSortOption,])
+
+    useEffect(()=>{
+      // setSelectedOption(null);
       fetchGenerList();
-      // fetchMovieOrTvData();
-    },[data.showType])
+      fetchMovieOrTvData();
+    },[clearStorage])
 
     useEffect(()=>{
       fetchMovieOrTvData()
-    },[data.showType,selectedOption,selectedSortOption])
+    },[page])
 
 
   return (
