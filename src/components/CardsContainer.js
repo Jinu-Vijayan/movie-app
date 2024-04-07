@@ -93,7 +93,7 @@ const CardsContainer = ({containerType,filterOptions,dataStoredIn, setFilter, ca
         { data.length > 0 &&
           data.map((elem)=>{
             return(
-              <MovieCard cardType = {cardType} movieDetails={elem} key={elem.id}/>
+              <MovieCard  movieDetails={elem} key={elem.id}/>
             )
           })
         }

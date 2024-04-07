@@ -76,7 +76,7 @@ const Search = () => {
             }
         </div>
         <div className='flex w-full justify-center items-center'>
-            <button onClick={()=>{
+            <button className='bg-green-800 px-7 py-2 rounded' onClick={()=>{
                 setPage((prev) => {
                     return prev + 1;
                 })
