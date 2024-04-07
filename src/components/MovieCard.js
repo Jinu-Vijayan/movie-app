@@ -20,7 +20,7 @@ const MovieCard = ({movieDetails, cardType}) => {
             <img src={movieDetails.poster_path !== null ? `http://image.tmdb.org/t/p/original${movieDetails.poster_path}` : '/assets/images/no-poster-available.png'} className=' h-[280px]'/>
             <div className='h-20'>
                 <p className='text-nowrap overflow-hidden'>{movieDetails.title || movieDetails.name}</p>
-                <p>{launchDate !== "" ?`${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}` : "Release date unavialable"}</p>
+                <p>{launchDate !== "" && launchDate !== undefined ?`${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}` : "Release date unavialable"}</p>
             </div>
         </NavLink>
     </div>
