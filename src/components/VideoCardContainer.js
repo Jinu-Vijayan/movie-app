@@ -11,7 +11,15 @@ const VideoCardContainer = () => {
 
   return (
     <div>
-        <p>Official Videos</p>
+        <p className='text-2xl font-bold'>Official Videos</p>
+        {
+          videos.length === 0 && 
+          (
+            <div className='flex justify-center'>
+              <p className='text-4xl italic'>No videos to show</p>
+            </div>
+          )
+        }
         <ReactSimplyCarousel
         activeSlideIndex={activeSlideIndex}
         onRequestChange={setActiveSlideIndex}

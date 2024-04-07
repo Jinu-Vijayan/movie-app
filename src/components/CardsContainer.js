@@ -32,6 +32,14 @@ const CardsContainer = ({containerType,filterOptions,dataStoredIn, setFilter, ca
           <div className={indicatorDivPosition===0 ? 'absolute  h-[85%] w-[45%] bg-blue-200 top-[3px] rounded-[30px] left-1' :'absolute  h-[90%] w-1/2 bg-blue-200 top-[3px] rounded-[30px] right-1'}></div>
         </div>}
       </div>
+      {
+        data.length === 0 && 
+        (
+          <div className='text-4xl italic flex justify-center'>
+            <p>No {containerType.toLowerCase()} available</p>
+          </div>
+        )
+      }
       <ReactSimplyCarousel
         activeSlideIndex={activeSlideIndex}
         onRequestChange={setActiveSlideIndex}
