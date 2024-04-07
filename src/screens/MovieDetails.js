@@ -86,7 +86,7 @@ const MovieDetails = () => {
     <main className='p-4 bg-slate-900 text-white '>
       <div className='flex justify-start gap-10 mb-4'>
         <div className='h-[70vh]'>
-          <img className='h-full' src={`https://image.tmdb.org/t/p/original${movieDetails.poster_path}`} alt={`poster image for the show ${movieDetails.title || movieDetails.name}`}/>
+          <img className='h-full' src={movieDetails.poster_path !== null ? `http://image.tmdb.org/t/p/original${movieDetails.poster_path}` : '/assets/images/no-poster-available.png'} alt={`poster image for the show ${movieDetails.title || movieDetails.name}`}/>
         </div>
         <div>
           <h2 className=' text-6xl mb-4'>{movieDetails.title || movieDetails.name}</h2>
