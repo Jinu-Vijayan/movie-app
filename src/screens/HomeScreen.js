@@ -50,7 +50,7 @@ const HomeScreen = () => {
     const configurationsUrl = 'https://api.themoviedb.org/3/configuration'
     const res = await fetchData(configurationsUrl,setConfigurations)
 
-    dispatch(setConfigurations(res.data))
+    dispatch(setConfigurations(res?.data))
   }
 
   async function fetchTrendingData(){

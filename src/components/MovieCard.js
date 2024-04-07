@@ -12,13 +12,15 @@ const MovieCard = ({movieDetails, cardType}) => {
 
   const date =new Date(movieDetails.release_date || movieDetails.first_air_date);
 
+  const launchDate = movieDetails.release_date || movieDetails.first_air_date;
+
   return (
     <div className=' w-[188px] text-white mr-3'>
         <NavLink to={`/${cardType}/${movieDetails.id}`}>
-            <img src={`http://image.tmdb.org/t/p/original${movieDetails.poster_path}`} className=' h-[280px]'/>
+            <img src={movieDetails.poster_path !== null ? `http://image.tmdb.org/t/p/original${movieDetails.poster_path}` : '/assets/images/no-poster-available.png'} className=' h-[280px]'/>
             <div className='h-20'>
                 <p className='text-nowrap overflow-hidden'>{movieDetails.title || movieDetails.name}</p>
-                <p>{`${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`}</p>
+                <p>{launchDate !== "" ?`${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}` : "Release date unavialable"}</p>
             </div>
         </NavLink>
     </div>
