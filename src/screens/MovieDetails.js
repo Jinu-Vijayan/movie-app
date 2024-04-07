@@ -88,7 +88,7 @@ const MovieDetails = () => {
         <div className='h-[70vh]'>
           <img className='h-full' src={movieDetails.poster_path !== null ? `http://image.tmdb.org/t/p/original${movieDetails.poster_path}` : '/assets/images/no-poster-available.png'} alt={`poster image for the show ${movieDetails.title || movieDetails.name}`}/>
         </div>
-        <div>
+        <div className='w-[60%]'>
           <h2 className=' text-6xl mb-4'>{movieDetails.title || movieDetails.name}</h2>
           <div className='flex gap-3'>
             {movieDetails?.genres?.length > 0 &&
@@ -108,6 +108,10 @@ const MovieDetails = () => {
             <a className='cursor-pointer' href={`https://www.youtube.com/watch?v=${trailerCode}`} target='_blank'>Watch Trailer</a>
             : <p>No trailer avialable</p>
             }
+          </div>
+          <div className='border border-x-0 mt-3 border-inherit'>
+            <p className='text-2xl font-bold'>Overview :</p>
+            <p>{movieDetails.overview}</p>
           </div>
         </div>
       </div>
