@@ -101,11 +101,11 @@ const MovieDetails = () => {
               })
             }
           </div>
-          <div className='mt-4 flex gap-8'>
+          <div className='mt-4 flex items-center gap-8'>
             <p>Rating:{movieDetails.vote_average}</p>
             {
               trailerCode ? 
-            <a className='cursor-pointer' href={`https://www.youtube.com/watch?v=${trailerCode}`} target='_blank'>Watch Trailer</a>
+            <a className='cursor-pointer px-5 py-2 bg-blue-500 rounded hover:bg-blue-700' href={`https://www.youtube.com/watch?v=${trailerCode}`} target='_blank'>Watch Trailer</a>
             : <p>No trailer avialable</p>
             }
           </div>
